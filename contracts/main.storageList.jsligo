@@ -1,0 +1,6 @@
+export type storage = { sponsee: address, ledger: big_map<address, tez> }
+
+export const initial_storage: storage = {  
+  sponsee: "tz1PCSUyddjLuiteBek9ZGLagB67udmuFUXE" as address,
+  ledger: Big_map.empty
+}

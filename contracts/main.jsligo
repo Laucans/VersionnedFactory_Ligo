@@ -1,0 +1,20 @@
+#import "./main.storageList.jsligo" "S"
+
+namespace Subscribe {
+  type ret = [list<operation>, S.storage]
+
+  @entry
+  const sponsorise = (_delta: int, store: S.storage): ret => {
+    return [list([]), { ...store, sponsee: "tz2XYzzNR3DSGHQg1xy2hZm7FsGto8RzRviz" as address }]
+  }
+  @entry
+  const retrieve = (_delta: int, store: S.storage): ret => {
+    return [list([]), { ...store, sponsee: "tz2XYzzNR3DSGHQg1xy2hZm7FsGto8RzRviz" as address }]
+  }
+  @entry
+  const reset = (_p: unit, store: S.storage): ret => {
+    return [list([]), { ...store, sponsee: "tz2XYzzNR3DSGHQg1xy2hZm7FsGto8RzRviz" as address }]
+  }
+}
+
+

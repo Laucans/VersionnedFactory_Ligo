@@ -1,0 +1,91 @@
+#import "./versioned_factory.types.jsligo" "S"
+
+
+const set_find_opt = <T>(value: T, set: set<T>) : option<T> => 
+  match(Set.mem(value, set)) {
+    when(True): Some(value);
+    when(False): None();
+  }
+
+export const is_admin = (address: address, factory_administrators: set<address>) : bool => 
+  match(set_find_opt(address, factory_administrators)){
+      when(Some(_)): true;
+      when(None): false
+    }
+
+export const create = ([create_contract_op, addr], storage: S.storage): S.return_ => {
+  assert_with_error(! storage.factory_disabled, "The factory is disable. See factory_new_address to reach the new factory");
+  const updated_holders =
+    Big_map.add([Tezos.get_sender(), addr], Tezos.get_now(), storage.holders)
+  const receipt_ticket: ticket<S.receipt_ticket_storage> = match(Tezos.create_ticket(["created contract", addr], 1n)) {
+    when(Some(ticket)): ticket;
+    when(None()): failwith("Not possible");
+  } 
+  const user : contract<ticket<S.receipt_ticket_storage>> = Tezos.get_contract_with_error(Tezos.get_sender(), "error")
+  const send_ticket_transaction = Tezos.transaction(receipt_ticket, 0tez, user)
+  return [list([create_contract_op, send_ticket_transaction]), { ...storage, holders: updated_holders }]
+}
+
+export const create_with_custom_ticket = <T>([create_contract_op, addr], ticket: ticket<T>, storage: S.storage): S.return_ => {
+  assert_with_error(! storage.factory_disabled, "The factory is disable. See factory_new_address to reach the new factory");
+  const updated_holders =
+    Big_map.add([Tezos.get_sender(), addr], Tezos.get_now(), storage.holders)
+  const user : contract<ticket<T>> = Tezos.get_contract_with_error(Tezos.get_sender(), "error")
+  const send_ticket_transaction = Tezos.transaction(ticket, 0tez, user)
+  return [list([create_contract_op, send_ticket_transaction]), { ...storage, holders: updated_holders }]
+}
+
+// Need protocol P to be possible, ticket cannot be sent by a wallet now
+export const forget = (p: ticket<S.receipt_ticket_storage>, s: S.storage): S.return_ => {
+  assert_with_error(! s.factory_disabled, "The factory is disable. See factory_new_address to reach the new factory");
+  const [[factory_addr, [[_message, creator_addr], _amt]], _ticket] =
+    Tezos.read_ticket(p)
+  const factories_address: set<address> =
+    Set.add(Tezos.get_self_address(), s.factory_old_address);
+  assert_none_with_error(
+    set_find_opt(factory_addr, factories_address),
+    "This ticket has not been delivered by our factory"
+  );
+  assert_with_error(
+    Big_map.mem([Tezos.get_source(), creator_addr], s.holders),
+    "You are not the original owner of this ticket"
+  )
+  const updated_holders =
+    Big_map.remove([Tezos.get_source(), creator_addr], s.holders)
+  return [list([]), { ...s, holders: updated_holders }]
+}
+
+export const forget_from_custom_ticket = ([factory_addr, creator_addr]: [address, address], s: S.storage): S.return_ => {
+  assert_with_error(! s.factory_disabled, "The factory is disable. See factory_new_address to reach the new factory");
+  const factories_address: set<address> =
+    Set.add(Tezos.get_self_address(), s.factory_old_address);
+  assert_none_with_error(
+    set_find_opt(factory_addr, factories_address),
+    "This ticket has not been delivered by our factory"
+  );
+  assert_with_error(
+    Big_map.mem([Tezos.get_source(), creator_addr], s.holders),
+    "You are not the original owner of this ticket"
+  )
+  const updated_holders =
+    Big_map.remove([Tezos.get_source(), creator_addr], s.holders)
+  return [list([]), { ...s, holders: updated_holders }]
+}
+
+export const disable_factory = (s: S.storage): S.return_ => {
+  assert_with_error(! s.factory_disabled, "The factory is disable. See factory_new_address to reach the new factory");
+  assert_with_error(
+    is_admin(Tezos.get_sender(), s.factory_administrators),
+    "You are not owner of the factory"
+  )
+  return [list([]), { ...s, factory_disabled: true }]
+}
+
+export const update_factory_new_address = (factory_new_address: address, s: S.storage): S.return_ => {
+  assert_with_error(s.factory_disabled, "The factory is not disable");
+  assert_with_error(
+   is_admin(Tezos.get_sender(), s.factory_administrators),
+    "You are not the owner of the factory"
+  )
+  return [list([]), { ...s, factory_new_address }]
+}

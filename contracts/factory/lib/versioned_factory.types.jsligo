@@ -1,0 +1,20 @@
+export type storage = {
+  holders: big_map<[address, address], timestamp>,
+  factory_old_address: set<address>,
+  factory_disabled: bool,
+  factory_administrators: set<address>,
+  factory_new_address: address
+}
+
+export type return_ = [list<operation>, storage];
+export type receipt_ticket_storage = [string, address];
+
+export const initial_storage: storage = {
+  holders: Big_map.empty,
+  factory_old_address: Set.literal(list([])),
+  factory_disabled: false,
+  factory_administrators: Set.literal(list(["tz1PCSUyddjLuiteBek9ZGLagB67udmuFUXE" as address])),
+  factory_new_address: "tz1PCSUyddjLuiteBek9ZGLagB67udmuFUXE" as address
+}
+
+

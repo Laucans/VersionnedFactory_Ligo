@@ -1,0 +1,12 @@
+#import "./versioned_factory.types.jsligo" "S"
+
+export interface VersionnedFactory {
+
+  const create: (_: unit, s: S.storage) => S.return_;
+
+  const forget: (p: ticket<S.receipt_ticket_storage>, s: S.storage) => S.return_;
+
+  const disable_factory: (_: unit, s: S.storage) => S.return_;
+
+  const update_factory_new_address: (factory_new_address: address, s: S.storage)=> S.return_
+}

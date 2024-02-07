@@ -1,0 +1,29 @@
+#import "../main.storageList.jsligo" "SubscribeStorage"
+#import "./lib/main.jsligo" "Factory"
+
+namespace Factory {
+  @entry
+  const create = (_p: unit, s: Factory.Types.storage): Factory.Types.return_ => {
+      const contract =
+      (create_contract_of_file `../../artifacts/Subscribe.tz`)(
+        None(),
+        0mutez,
+        SubscribeStorage.initial_storage as SubscribeStorage.storage
+      )
+    return Factory.Impl.create(contract, s)
+  }
+
+  // Need protocol P to be a possible workflow, with wallet as a direct caller
+  // Tickets cannot be sent by a wallet now
+  @entry
+  const forget = (p: ticket<Factory.Types.receipt_ticket_storage>, s: Factory.Types.storage): Factory.Types.return_ =>
+    Factory.Impl.forget(p, s)
+
+  @entry
+  const disable_factory = (_p: unit, s: Factory.Types.storage): Factory.Types.return_ => 
+    Factory.Impl.disable_factory(s)
+
+  @entry
+  const update_factory_new_address = (factory_new_address: address, s: Factory.Types.storage): Factory.Types.return_ => 
+    Factory.Impl.update_factory_new_address(factory_new_address, s)
+}

@@ -1,0 +1,3 @@
+#import "./versioned_factory.impl.jsligo" "Impl"
+#import "./versioned_factory.types.jsligo" "Types"
+#import "./versioned_factory.interface.jsligo" "Interface"
