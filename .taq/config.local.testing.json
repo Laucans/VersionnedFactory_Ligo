@@ -1,0 +1,16 @@
+{
+    "contracts": {
+        "factory_main": {
+            "address": "KT1GXUQHcR65Cfzs9wPj4XauoxsQeHTtkbEg"
+        }
+    },
+    "networkName": "ghostnet",
+    "accounts": {
+        "taqOperatorAccount": {
+            "publicKey": "edpkuPTGjxArXDPbJK8XsjLoLNvjPsUL2zeQED851tdk1Jreqdiyd5",
+            "publicKeyHash": "tz1PCSUyddjLuiteBek9ZGLagB67udmuFUXE",
+            "privateKey": "edskRnaAmgi3bge3k4BkQHU31gD5CSh5sixFoYwUqy5AjVd9MoxLQQXyW6VHBPhjAd3vfnq3BfphkdmsSekJYctLL1LhiH8DyB",
+            "mnemonic": "fuel kitchen tiny end extend sunset wolf minute daring gold risk various"
+        }
+    }
+}

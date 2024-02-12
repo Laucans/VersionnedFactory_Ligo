@@ -1,0 +1,28 @@
+#import "@ligo/fa/lib/fa2/common/errors.mligo" "Errors"
+
+#import "@ligo/fa/lib/fa2/common/assertions.jsligo" "Assertions"
+
+#import "@ligo/fa/lib/fa2/common/tzip12.datatypes.jsligo" "TZIP12"
+
+#import "@ligo/fa/lib/fa2/common/tzip12.interfaces.jsligo" "TZIP12Interface"
+
+#import "@ligo/fa/lib/fa2/common/tzip16.datatypes.jsligo" "TZIP16"
+export namespace NFT {
+    
+    type storage = int;
+    
+
+@entry
+const transfer = (p: FA2.TZIP12.transfer, s: storage): ret => {
+    failwith("TODO");
+};
+@entry
+const balance_of = (p: TZIP12.balance_of, s: storage): ret => {
+    failwith("TODO");
+};
+@entry
+const update_operators = (p: TZIP12.update_operators, s: storage): ret => {
+    failwith("TODO");
+};
+
+}

@@ -2,11 +2,15 @@
 
 export interface VersionnedFactory {
 
+  @entry
   const create: (_: unit, s: S.storage) => S.return_;
 
+  @entry
   const forget: (p: ticket<S.receipt_ticket_storage>, s: S.storage) => S.return_;
 
+  @entry
   const disable_factory: (_: unit, s: S.storage) => S.return_;
-
+  
+  @entry
   const update_factory_new_address: (factory_new_address: address, s: S.storage)=> S.return_
 }

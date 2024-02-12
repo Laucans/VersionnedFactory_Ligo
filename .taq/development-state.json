@@ -1,0 +1,60 @@
+{
+    "operations": {},
+    "tasks": {
+        "@taqueria/plugin-ligo.compile.1707271357121": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1707271357121,
+            "output": [
+                {
+                    "source": "subscribe/factory/factory_main.jsligo",
+                    "artifact": "artifacts/factory_main.tz"
+                }
+            ]
+        },
+        "@taqueria/plugin-ligo.compile.1707319968744": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1707319968744,
+            "output": [
+                {
+                    "source": "subscribe/factory/factory_main.jsligo",
+                    "artifact": "artifacts/factory_main.tz"
+                }
+            ]
+        },
+        "@taqueria/plugin-ligo.compile.1707322812991": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1707322812991,
+            "output": [
+                {
+                    "source": "subscribe/factory/factory_main.jsligo",
+                    "artifact": "artifacts/factory_main.tz"
+                }
+            ]
+        },
+        "@taqueria/plugin-ligo.compile.1707325547328": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1707325547328,
+            "output": [
+                {
+                    "source": "subscribe/factory/factory_main.jsligo",
+                    "artifact": "No contract modules found in \"subscribe/factory/factory_main.jsligo\".\nIf your contract is defined within a namespace, please ensure that it is exported from the contract file.\""
+                }
+            ]
+        },
+        "@taqueria/plugin-ligo.compile.1707339038773": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1707339038773,
+            "output": [
+                {
+                    "source": "subscribe/factory/factory_main.jsligo/Factory",
+                    "artifact": "artifacts/Factory.tz"
+                }
+            ]
+        }
+    }
+}

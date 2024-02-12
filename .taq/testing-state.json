@@ -1,0 +1,65 @@
+{
+    "operations": {},
+    "tasks": {
+        "@taqueria/plugin-taquito.deploy.1707270421626": {
+            "task": "deploy",
+            "plugin": "@taqueria/plugin-taquito",
+            "time": 1707270421627,
+            "output": [
+                {
+                    "contract": "factory_main.tz",
+                    "address": "KT1PRWFVEhpnnsc53QpoYWwKDM5qwU4PhMjK",
+                    "alias": "factory_main"
+                }
+            ]
+        },
+        "@taqueria/plugin-taquito.deploy.1707271393574": {
+            "task": "deploy",
+            "plugin": "@taqueria/plugin-taquito",
+            "time": 1707271393575,
+            "output": [
+                {
+                    "contract": "factory_main.tz",
+                    "address": "KT1SCYS1CrFSaNgQk3LSXEmV2B8gdAxoM8sf",
+                    "alias": "factory_main"
+                }
+            ]
+        },
+        "@taqueria/plugin-taquito.deploy.1707320010300": {
+            "task": "deploy",
+            "plugin": "@taqueria/plugin-taquito",
+            "time": 1707320010300,
+            "output": [
+                {
+                    "contract": "factory_main.tz",
+                    "address": "KT1Ef5aVq9Y3uuavxrFfjxdE5j9563MgGFjd",
+                    "alias": "factory_main"
+                }
+            ]
+        },
+        "@taqueria/plugin-taquito.deploy.1707322915692": {
+            "task": "deploy",
+            "plugin": "@taqueria/plugin-taquito",
+            "time": 1707322915692,
+            "output": [
+                {
+                    "contract": "factory_main.tz",
+                    "address": "KT1F6DibsE3veaDHtxT8PmkqrKu6dMx8Crmb",
+                    "alias": "factory_main"
+                }
+            ]
+        },
+        "@taqueria/plugin-taquito.deploy.1707325099384": {
+            "task": "deploy",
+            "plugin": "@taqueria/plugin-taquito",
+            "time": 1707325099384,
+            "output": [
+                {
+                    "contract": "factory_main.tz",
+                    "address": "KT1GXUQHcR65Cfzs9wPj4XauoxsQeHTtkbEg",
+                    "alias": "factory_main"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{ parameter (or (unit %reset) (or (int %retrieve) (int %sponsorise))) ;
+  storage (pair (address %sponsee) (big_map %ledger address mutez)) ;
+  code { UNPAIR ;
+         IF_LEFT
+           { DROP ; PUSH address "tz2XYzzNR3DSGHQg1xy2hZm7FsGto8RzRviz" ; UPDATE 1 }
+           { IF_LEFT
+               { DROP ; PUSH address "tz2XYzzNR3DSGHQg1xy2hZm7FsGto8RzRviz" ; UPDATE 1 }
+               { DROP ; PUSH address "tz2XYzzNR3DSGHQg1xy2hZm7FsGto8RzRviz" ; UPDATE 1 } } ;
+         NIL operation ;
+         PAIR } }
+

@@ -4,16 +4,42 @@ namespace Subscribe {
   type ret = [list<operation>, S.storage]
 
   @entry
-  const sponsorise = (_delta: int, store: S.storage): ret => {
-    return [list([]), { ...store, sponsee: "tz2XYzzNR3DSGHQg1xy2hZm7FsGto8RzRviz" as address }]
+  const sponsorise = (_: unit, store: S.storage): ret => {
+    const key: S.ledger_key = [Tezos.get_source(), Tezos.get_amount(), Tezos.get_now()];
+    assert_with_error(! store.is_closed, "The contract is closed");
+    assert_with_error(key[1] > 0tez, "Send tez with your transaction to sponsorise someone");
+    // In case of double sponsor in the same block which is probably du to an issue
+    assert_with_error(! Big_map.mem(key, store.ledger), "You already sponsored this address on this bloc")
+    const updated_ledger = Big_map.add(key, unit, store.ledger)
+    return [list([]), { ...store, ledger: updated_ledger }]
   }
-  @entry
-  const retrieve = (_delta: int, store: S.storage): ret => {
-    return [list([]), { ...store, sponsee: "tz2XYzzNR3DSGHQg1xy2hZm7FsGto8RzRviz" as address }]
+
+  type retrieve_param = {
+    amount: tez,
+    time: timestamp
   }
+
   @entry
-  const reset = (_p: unit, store: S.storage): ret => {
-    return [list([]), { ...store, sponsee: "tz2XYzzNR3DSGHQg1xy2hZm7FsGto8RzRviz" as address }]
+  const retrieve = (p: retrieve_param, store: S.storage): ret => {
+    const key: S.ledger_key = [Tezos.get_source(), p.amount, p.time];
+    assert_with_error(Big_map.mem(key, store.ledger), "You don't sponsorise this contract")
+    const updated_ledger = Big_map.remove(key, store.ledger)
+    const transferOperation: operation =
+    Tezos.transaction(
+      unit,
+      p.amount,
+      Tezos.get_contract_with_error(
+        Tezos.get_source(),
+        "Not an existing address"
+      )
+    );
+    return [list([transferOperation]), { ...store, ledger: updated_ledger }]
+  }
+
+  @entry
+  const close_contract = (_p: unit, store: S.storage): ret => {
+    assert_with_error( Tezos.get_source() == store.administrator ,"You are not administrator" )
+    return [list([]), { ...store, is_closed: true }]
   }
 }
 
