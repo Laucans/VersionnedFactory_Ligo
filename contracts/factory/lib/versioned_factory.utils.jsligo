@@ -1,0 +1,13 @@
+#import "./versioned_factory.types.jsligo" "S"
+
+export namespace Child_Contract {
+
+  export const generate_forget_operation = (factory_address : address, ticket: ticket<S.receipt_ticket_storage>) : operation => {
+    let contract = match (Tezos.get_entrypoint_opt("%forget", factory_address)) {
+      when(Some(c)): c;
+      when(None()): failwith ("Factory address does not match")
+    }
+    return Tezos.transaction(ticket ,0tez, contract);
+  }
+}
+

@@ -1,5 +1,5 @@
 #import "../main.storageList.jsligo" "SubscribeStorage"
-#import "./lib/main.jsligo" "F"
+#import ".//lib/main.jsligo" "F"
 
 namespace Factory implements F.Interface.VersionnedFactory {
   @entry
@@ -8,7 +8,7 @@ namespace Factory implements F.Interface.VersionnedFactory {
       (create_contract_of_file `../../artifacts/Subscribe.tz`)(
         None(),
         0mutez,
-        SubscribeStorage.initial_storage as SubscribeStorage.storage
+        { ...SubscribeStorage.initial_storage, source_factory: Tezos.get_self_address() } as SubscribeStorage.storage
       )
     return F.Impl.create(contract, s)
   }

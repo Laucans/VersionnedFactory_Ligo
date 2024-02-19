@@ -1,4 +1,5 @@
 #import "./main.storageList.jsligo" "S"
+#import "./factory/lib/main.jsligo" "F"
 
 namespace Subscribe {
   type ret = [list<operation>, S.storage]
@@ -41,6 +42,13 @@ namespace Subscribe {
     assert_with_error( Tezos.get_source() == store.administrator ,"You are not administrator" )
     return [list([]), { ...store, is_closed: true }]
   }
+
+  // Need protocol P to be a possible workflow, with wallet as a direct caller
+  // Tickets cannot be sent by a wallet now
+  @entry
+  const close_contract_and_forget = (ticket: ticket<F.Types.receipt_ticket_storage>, store: S.storage): ret => {
+    const [op, updated_store] = close_contract(unit, store);
+    const x = F.Utils.Child_Contract.generate_forget_operation(store.source_factory, ticket);
+    return [List.cons(x, op), updated_store]
+  }
 }
-
-

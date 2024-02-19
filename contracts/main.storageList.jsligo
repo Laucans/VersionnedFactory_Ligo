@@ -1,3 +1,5 @@
+
+
 export type ledger_key = [address, tez, timestamp]
 
 export type storage = {
@@ -5,13 +7,16 @@ export type storage = {
   administrator: address,
   minimal_amount: tez,
   ledger: big_map<ledger_key, unit>,
-  is_closed: bool
+  is_closed: bool,
+  source_factory: address
 }
+
 
 export const initial_storage: storage = {
   sponsee: "tz1PCSUyddjLuiteBek9ZGLagB67udmuFUXE" as address,
   administrator: "tz1PCSUyddjLuiteBek9ZGLagB67udmuFUXE" as address,
   minimal_amount: 5000000mutez,
   ledger: Big_map.empty,
-  is_closed: false
+  is_closed: false,
+  source_factory: "tz1PCSUyddjLuiteBek9ZGLagB67udmuFUXE" as address
 }

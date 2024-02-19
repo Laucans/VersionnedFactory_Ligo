@@ -5,6 +5,8 @@ export interface VersionnedFactory {
   @entry
   const create: (_: unit, s: S.storage) => S.return_;
 
+  // Need protocol P to be a possible workflow, with wallet as a direct caller
+  // Tickets cannot be sent by a wallet now
   @entry
   const forget: (p: ticket<S.receipt_ticket_storage>, s: S.storage) => S.return_;
 
